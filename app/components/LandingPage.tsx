@@ -99,7 +99,7 @@ export default function LandingPage() {
                       value={propertyType}
                       onChange={(e) => setPropertyType(e.target.value)}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 text-gray-700"
-                      placeholder="Property Type"
+                      
                     >
                       <option value="">Apartment | Duplex | Land | Shared Room</option>
                       <option value="apartment">Apartment</option>
