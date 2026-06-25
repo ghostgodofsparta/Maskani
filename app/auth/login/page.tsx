@@ -25,7 +25,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-teal-600 mb-2">Maskani</h1>
+            <h1 className="text-3xl font-bold text-maskani-navy mb-2">Maskani</h1>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome Back</h2>
             <p className="text-gray-600">Sign in to your account</p>
           </div>
@@ -38,7 +38,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="john@example.com"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-maskani-teal focus:ring-2 focus:ring-teal-200"
               />
             </div>
 
@@ -50,7 +50,7 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-maskani-teal focus:ring-2 focus:ring-teal-200"
                 />
                 <button
                   type="button"
@@ -65,7 +65,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={!email || !password || loading}
-              className="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 mt-6"
+              className="w-full bg-maskani-teal hover:bg-teal-700 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 mt-6"
             >
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -74,7 +74,7 @@ export default function LoginPage() {
           <div className="text-center mt-6">
             <p className="text-gray-600">
               Don't have an account?{' '}
-              <Link href="/auth/signup" className="text-teal-600 hover:text-teal-700 font-semibold">
+              <Link href="/auth/signup" className="text-maskani-navy hover:text-teal-700 font-semibold">
                 Sign Up
               </Link>
             </p>

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ChevronRight, Home, Users, Mail, Phone, Apple, Eye, EyeOff } from 'lucide-react';
 
 type SignUpStep = 'role-select' | 'auth-method' | 'phone-otp' | 'details';
-type UserRole = 'tenant' | 'landlord' | null;
+type UserRole = 'tenant' | 'agent' | null;
 type AuthMethod = 'google' | 'phone' | null;
 
 export default function SignUpPage() {
@@ -31,7 +31,6 @@ export default function SignUpPage() {
   const handleAuthMethodSelect = (method: AuthMethod) => {
     setAuthMethod(method);
     if (method === 'google') {
-      // Handle Google Sign-Up (integrate with Firebase/NextAuth)
       handleGoogleSignUp();
     } else if (method === 'phone') {
       setStep('phone-otp');
@@ -42,13 +41,10 @@ export default function SignUpPage() {
   const handleGoogleSignUp = async () => {
     setLoading(true);
     try {
-      // TODO: Integrate with Google OAuth (NextAuth.js or Firebase)
       console.log(`Signing up ${role} with Google`);
-      // Simulate API call
       setTimeout(() => {
         setLoading(false);
-        // Redirect to dashboard after successful signup
-        window.location.href = role === 'tenant' ? '/dashboard/tenant' : '/dashboard/landlord';
+        window.location.href = role === 'tenant' ? '/dashboard/tenant' : '/dashboard/agent';
       }, 1500);
     } catch (error) {
       console.error('Google signup error:', error);
@@ -63,9 +59,7 @@ export default function SignUpPage() {
 
     setLoading(true);
     try {
-      // TODO: Integrate with SMS provider (Twilio, Africa's Talking)
       console.log(`Sending OTP to ${phoneNumber}`);
-      // Simulate API call
       setTimeout(() => {
         setShowOtpInput(true);
         setLoading(false);
@@ -83,9 +77,7 @@ export default function SignUpPage() {
 
     setLoading(true);
     try {
-      // TODO: Verify OTP with backend
       console.log(`Verifying OTP: ${otp}`);
-      // Simulate API call
       setTimeout(() => {
         setStep('details');
         setLoading(false);
@@ -103,7 +95,6 @@ export default function SignUpPage() {
 
     setLoading(true);
     try {
-      // TODO: Create user in database (Firebase, PostgreSQL, etc.)
       const signupData = {
         role,
         phoneNumber: authMethod === 'phone' ? phoneNumber : undefined,
@@ -114,11 +105,9 @@ export default function SignUpPage() {
 
       console.log('Completing signup:', signupData);
 
-      // Simulate API call
       setTimeout(() => {
         setLoading(false);
-        // Redirect to dashboard after successful signup
-        window.location.href = role === 'tenant' ? '/dashboard/tenant' : '/dashboard/landlord';
+        window.location.href = role === 'tenant' ? '/dashboard/tenant' : '/dashboard/agent';
       }, 1500);
     } catch (error) {
       console.error('Signup completion error:', error);
@@ -127,7 +116,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
+    <div className="min-h-screen bg-gradient-to-br from-maskani-off-white via-white to-maskani-teal">
       {/* Back Button & Logo */}
       <div className="fixed top-0 left-0 right-0 bg-white shadow-sm z-40">
         <div className="max-w-md mx-auto px-4 h-16 flex items-center justify-between">
@@ -138,13 +127,16 @@ export default function SignUpPage() {
                 else if (step === 'phone-otp') setStep('auth-method');
                 else if (step === 'details') setStep('phone-otp');
               }}
-              className="text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1"
+              className="text-maskani-teal hover:text-maskani-navy font-medium flex items-center gap-1"
             >
               ← Back
             </button>
           )}
           <div className="flex-1 text-center">
-            <h1 className="text-2xl font-bold text-teal-600">Maskani</h1>
+            <div className="flex items-center gap-1 justify-center">
+              <img src="/maskani-logo.svg" alt="Maskani" className="h-6 w-6" />
+              <h1 className="text-2xl font-bold text-maskani-navy">Maskani</h1>
+            </div>
           </div>
           <div className="w-12"></div>
         </div>
@@ -156,33 +148,33 @@ export default function SignUpPage() {
           {step === 'role-select' && (
             <div className="space-y-6 animate-fadeIn">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Let's get started</h2>
+                <h2 className="text-3xl font-bold text-maskani-navy mb-2">Let's get started</h2>
                 <p className="text-gray-600">Are you looking for a property or listing one?</p>
               </div>
 
               {/* Tenant Option */}
               <button
                 onClick={() => handleRoleSelect('tenant')}
-                className="w-full bg-white border-2 border-gray-300 hover:border-teal-500 hover:bg-teal-50 rounded-2xl p-6 text-left transition-all group"
+                className="w-full bg-white border-2 border-gray-300 hover:border-maskani-teal hover:bg-maskani-off-white rounded-2xl p-6 text-left transition-all group"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <Users className="text-teal-600 group-hover:scale-110 transition" size={32} />
-                  <ChevronRight className="text-gray-400 group-hover:text-teal-600 transition" size={24} />
+                  <Users className="text-maskani-teal group-hover:scale-110 transition" size={32} />
+                  <ChevronRight className="text-gray-400 group-hover:text-maskani-teal transition" size={24} />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">I'm a Tenant</h3>
+                <h3 className="text-xl font-bold text-maskani-navy mb-2">I'm a Tenant</h3>
                 <p className="text-gray-600 text-sm">Looking for a place to live</p>
               </button>
 
-              {/* Landlord Option */}
+              {/* Agent Option */}
               <button
-                onClick={() => handleRoleSelect('landlord')}
-                className="w-full bg-white border-2 border-gray-300 hover:border-teal-500 hover:bg-teal-50 rounded-2xl p-6 text-left transition-all group"
+                onClick={() => handleRoleSelect('agent')}
+                className="w-full bg-white border-2 border-gray-300 hover:border-maskani-green hover:bg-maskani-off-white rounded-2xl p-6 text-left transition-all group"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <Home className="text-orange-500 group-hover:scale-110 transition" size={32} />
-                  <ChevronRight className="text-gray-400 group-hover:text-orange-500 transition" size={24} />
+                  <Home className="text-maskani-green group-hover:scale-110 transition" size={32} />
+                  <ChevronRight className="text-gray-400 group-hover:text-maskani-green transition" size={24} />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">I'm a Landlord</h3>
+                <h3 className="text-xl font-bold text-maskani-navy mb-2">I'm an Agent</h3>
                 <p className="text-gray-600 text-sm">Listing properties or managing</p>
               </button>
 
@@ -190,7 +182,7 @@ export default function SignUpPage() {
               <div className="text-center pt-4">
                 <p className="text-gray-600">
                   Already have an account?{' '}
-                  <Link href="/auth/login" className="text-teal-600 hover:text-teal-700 font-semibold">
+                  <Link href="/auth/login" className="text-maskani-teal hover:text-maskani-navy font-semibold">
                     Sign In
                   </Link>
                 </p>
@@ -202,8 +194,8 @@ export default function SignUpPage() {
           {step === 'auth-method' && (
             <div className="space-y-6 animate-fadeIn">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  {role === 'tenant' ? "Tenant Sign Up" : "Landlord Sign Up"}
+                <h2 className="text-3xl font-bold text-maskani-navy mb-2">
+                  {role === 'tenant' ? "Tenant Sign Up" : "Agent Sign Up"}
                 </h2>
                 <p className="text-gray-600">Choose how you'd like to sign up</p>
               </div>
@@ -212,7 +204,7 @@ export default function SignUpPage() {
               <button
                 onClick={() => handleAuthMethodSelect('google')}
                 disabled={loading}
-                className="w-full bg-white border border-gray-300 hover:border-teal-500 hover:bg-teal-50 rounded-xl py-3 px-4 font-semibold text-gray-900 transition flex items-center justify-center gap-3 disabled:opacity-50"
+                className="w-full bg-white border border-gray-300 hover:border-maskani-teal hover:bg-maskani-off-white rounded-xl py-3 px-4 font-semibold text-gray-900 transition flex items-center justify-center gap-3 disabled:opacity-50"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path
@@ -239,9 +231,9 @@ export default function SignUpPage() {
               <button
                 onClick={() => handleAuthMethodSelect('phone')}
                 disabled={loading}
-                className="w-full bg-white border border-gray-300 hover:border-orange-500 hover:bg-orange-50 rounded-xl py-3 px-4 font-semibold text-gray-900 transition flex items-center justify-center gap-3 disabled:opacity-50"
+                className="w-full bg-white border border-gray-300 hover:border-maskani-green hover:bg-maskani-off-white rounded-xl py-3 px-4 font-semibold text-gray-900 transition flex items-center justify-center gap-3 disabled:opacity-50"
               >
-                <Phone size={20} className="text-orange-500" />
+                <Phone size={20} className="text-maskani-green" />
                 {loading ? 'Processing...' : 'Sign up with Phone Number'}
               </button>
 
@@ -261,7 +253,7 @@ export default function SignUpPage() {
                   setAuthMethod('phone');
                   setStep('phone-otp');
                 }}
-                className="w-full bg-teal-600 hover:bg-teal-700 text-white rounded-xl py-3 px-4 font-semibold transition flex items-center justify-center gap-2"
+                className="w-full bg-gradient-maskani-primary hover:opacity-90 text-white rounded-xl py-3 px-4 font-semibold transition flex items-center justify-center gap-2"
               >
                 <Mail size={20} />
                 Sign up with Email
@@ -273,21 +265,21 @@ export default function SignUpPage() {
           {step === 'phone-otp' && (
             <div className="space-y-6 animate-fadeIn">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Enter your phone</h2>
+                <h2 className="text-3xl font-bold text-maskani-navy mb-2">Enter your phone</h2>
                 <p className="text-gray-600">We'll send you a verification code</p>
               </div>
 
               {!showOtpInput ? (
                 <form onSubmit={handleSendOtp} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-900 mb-2">Phone Number</label>
+                    <label className="block text-sm font-semibold text-maskani-navy mb-2">Phone Number</label>
                     <div className="flex gap-2">
                       <input
                         type="tel"
                         value={phoneNumber}
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         placeholder="254 7XX XXX XXX"
-                        className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+                        className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-maskani-teal focus:ring-2 focus:ring-maskani-teal/20"
                       />
                     </div>
                     <p className="text-xs text-gray-500 mt-2">Include country code (e.g., +254)</p>
@@ -296,7 +288,7 @@ export default function SignUpPage() {
                   <button
                     type="submit"
                     disabled={!phoneNumber || loading}
-                    className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-maskani-primary hover:opacity-90 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Sending code...' : 'Send Verification Code'}
                   </button>
@@ -304,14 +296,14 @@ export default function SignUpPage() {
               ) : (
                 <form onSubmit={handleVerifyOtp} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-semibold text-gray-900 mb-2">Verification Code</label>
+                    <label className="block text-sm font-semibold text-maskani-navy mb-2">Verification Code</label>
                     <input
                       type="text"
                       value={otp}
                       onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
                       placeholder="000000"
                       maxLength={6}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200 text-center text-2xl tracking-widest font-mono"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-maskani-teal focus:ring-2 focus:ring-maskani-teal/20 text-center text-2xl tracking-widest font-mono"
                     />
                     <p className="text-xs text-gray-500 mt-2">Check your SMS for the 6-digit code</p>
                   </div>
@@ -319,7 +311,7 @@ export default function SignUpPage() {
                   <button
                     type="submit"
                     disabled={otp.length !== 6 || loading}
-                    className="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-gradient-maskani-primary hover:opacity-90 text-white font-semibold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {loading ? 'Verifying...' : 'Verify Code'}
                   </button>
@@ -327,7 +319,7 @@ export default function SignUpPage() {
                   <button
                     type="button"
                     onClick={() => setShowOtpInput(false)}
-                    className="w-full text-teal-600 hover:text-teal-700 font-medium py-2"
+                    className="w-full text-maskani-teal hover:text-maskani-navy font-medium py-2"
                   >
                     Didn't receive code? Send again
                   </button>
@@ -340,45 +332,45 @@ export default function SignUpPage() {
           {step === 'details' && (
             <div className="space-y-6 animate-fadeIn">
               <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Almost done!</h2>
+                <h2 className="text-3xl font-bold text-maskani-navy mb-2">Almost done!</h2>
                 <p className="text-gray-600">Complete your profile</p>
               </div>
 
               <form onSubmit={handleCompleteSignUp} className="space-y-4">
                 {/* Full Name */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Full Name</label>
+                  <label className="block text-sm font-semibold text-maskani-navy mb-2">Full Name</label>
                   <input
                     type="text"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="John Doe"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-maskani-teal focus:ring-2 focus:ring-maskani-teal/20"
                   />
                 </div>
 
                 {/* Email */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Email Address</label>
+                  <label className="block text-sm font-semibold text-maskani-navy mb-2">Email Address</label>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="john@example.com"
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-maskani-teal focus:ring-2 focus:ring-maskani-teal/20"
                   />
                 </div>
 
                 {/* Password */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-900 mb-2">Password</label>
+                  <label className="block text-sm font-semibold text-maskani-navy mb-2">Password</label>
                   <div className="relative">
                     <input
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="••••••••"
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-200"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:border-maskani-teal focus:ring-2 focus:ring-maskani-teal/20"
                     />
                     <button
                       type="button"
@@ -395,15 +387,15 @@ export default function SignUpPage() {
                   <input
                     type="checkbox"
                     id="terms"
-                    className="mt-1 w-4 h-4 rounded border-gray-300 text-teal-600"
+                    className="mt-1 w-4 h-4 rounded border-gray-300 text-maskani-teal"
                   />
                   <label htmlFor="terms" className="text-sm text-gray-600">
                     I agree to the{' '}
-                    <Link href="#" className="text-teal-600 hover:text-teal-700 font-semibold">
+                    <Link href="#" className="text-maskani-teal hover:text-maskani-navy font-semibold">
                       Terms of Service
                     </Link>
                     {' '}and{' '}
-                    <Link href="#" className="text-teal-600 hover:text-teal-700 font-semibold">
+                    <Link href="#" className="text-maskani-teal hover:text-maskani-navy font-semibold">
                       Privacy Policy
                     </Link>
                   </label>
@@ -413,7 +405,7 @@ export default function SignUpPage() {
                 <button
                   type="submit"
                   disabled={!fullName || !email || !password || loading}
-                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-maskani-secondary hover:opacity-90 text-white font-bold py-3 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Creating Account...' : 'Create Account'}
                 </button>
@@ -423,7 +415,7 @@ export default function SignUpPage() {
               <div className="text-center">
                 <p className="text-gray-600">
                   Already have an account?{' '}
-                  <Link href="/auth/login" className="text-teal-600 hover:text-teal-700 font-semibold">
+                  <Link href="/auth/login" className="text-maskani-teal hover:text-maskani-navy font-semibold">
                     Sign In
                   </Link>
                 </p>

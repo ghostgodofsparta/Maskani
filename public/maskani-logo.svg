@@ -1,0 +1,16 @@
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- House shape - Navy -->
+  <path d="M 20 45 L 50 20 L 80 45 L 80 80 L 20 80 Z" fill="#1A3A52" stroke="none"/>
+  
+  <!-- Door -->
+  <rect x="42" y="55" width="16" height="25" fill="#F5F7FA"/>
+  
+  <!-- Checkmark - Teal -->
+  <path d="M 35 50 L 42 58 L 55 42" stroke="#2B7A9B" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Upward arrow - Green -->
+  <path d="M 65 65 L 65 35 M 65 35 L 58 42 M 65 35 L 72 42" stroke="#4DB8A8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Window -->
+  <rect x="28" y="35" width="8" height="8" fill="#5DADE2"/>
+</svg>

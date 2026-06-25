@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f8fafb;
+  --foreground: #1a3a52;
+  --maskani-navy: #1a3a52;
+  --maskani-navy-dark: #0f2433;
+  --maskani-teal: #2b7a9b;
+  --maskani-teal-light: #5dade2;
+  --maskani-green: #4db8a8;
+  --maskani-off-white: #f0f7fa;
+  --maskani-orange: #e8875b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-maskani-navy: var(--maskani-navy);
+  --color-maskani-navy-dark: var(--maskani-navy-dark);
+  --color-maskani-teal: var(--maskani-teal);
+  --color-maskani-teal-light: var(--maskani-teal-light);
+  --color-maskani-green: var(--maskani-green);
+  --color-maskani-off-white: var(--maskani-off-white);
+  --color-maskani-orange: var(--maskani-orange);
+  --font-sans: var(--font-plus-jakarta);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+}
+
+.bg-gradient-maskani-primary {
+  background: linear-gradient(135deg, #1a3a52 0%, #2b7a9b 100%);
+}
+
+.bg-gradient-maskani-secondary {
+  background: linear-gradient(135deg, #2b7a9b 0%, #4db8a8 100%);
+}
+
+.bg-gradient-maskani-hero {
+  background: linear-gradient(160deg, #f0f7fa 0%, #ffffff 45%, #e8f4f8 100%);
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes count-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out forwards;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.4s ease-out forwards;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.carousel-slide {
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.carousel-slide-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.carousel-slide-inactive {
+  opacity: 0;
+  transform: scale(0.96);
+  z-index: 1;
+  position: absolute;
+  inset: 0;
 }
